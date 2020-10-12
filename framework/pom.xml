@@ -6,10 +6,12 @@
         <artifactId>shixin-spring-boot</artifactId>
         <groupId>com.shixin</groupId>
         <version>${revision}</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>framework</artifactId>
     <name>framework</name>
+    <version>${revision}</version>
     <description>框架相关类，该模块包含Spring Boot 框架所需的常用类</description>
     <packaging>jar</packaging>
 
@@ -19,9 +21,12 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.shixin</groupId>
             <artifactId>commons</artifactId>
-            <version>0.1</version>
         </dependency>
     </dependencies>
 

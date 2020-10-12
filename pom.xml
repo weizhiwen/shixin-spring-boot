@@ -3,14 +3,12 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <groupId>com.shixin</groupId>
     <artifactId>shixin-spring-boot</artifactId>
     <name>shixin-spring-boot</name>
     <version>${revision}</version>
     <packaging>pom</packaging>
     <description>士心 Spring Boot 自定制框架的父级模块，其子模块集成该模块</description>
-
     <!-- 子模块集合 -->
     <modules>
         <module>commons</module>
@@ -21,14 +19,19 @@
     <properties>
         <java.version>11</java.version>
         <revision>0.1</revision>
-        <springboot.version>2.2.7.RELEASE</springboot.version>
-        <lombok.version>1.18.14</lombok.version>
+        <springboot.version>2.2.10.RELEASE</springboot.version>
+        <lombok.version>1.18.12</lombok.version>
         <hutool.version>5.4.4</hutool.version>
         <jpa.json.version>2.10.0</jpa.json.version>
         <jjwt.version>0.9.1</jjwt.version>
         <mysql.jdbc.version>8.0.15</mysql.jdbc.version>
         <github.global.server>github</github.global.server>
     </properties>
+
+    <!-- 项目依赖 -->
+    <dependencies>
+
+    </dependencies>
 
     <!-- 项目依赖的管理 -->
     <dependencyManagement>
@@ -41,7 +44,18 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <dependency>
+                <groupId>com.shixin</groupId>
+                <artifactId>commons</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.shixin</groupId>
+                <artifactId>framework</artifactId>
+                <version>${revision}</version>
+            </dependency>
             <!-- 第三方库依赖 -->
+            <!-- lombok -->
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
@@ -71,8 +85,6 @@
                 <artifactId>jjwt</artifactId>
                 <version>${jjwt.version}</version>
             </dependency>
-
-
         </dependencies>
     </dependencyManagement>
 
@@ -81,9 +93,35 @@
         <repository>
             <id>maven.repo</id>
             <name>Local Staging Repository</name>
-            <url>file://${project.build.directory}/mvn-repo</url>
+            <url>file://${project.basedir}/mvn-repo</url>
         </repository>
     </distributionManagement>
+
+    <!-- Maven 镜像配置 -->
+    <repositories>
+        <repository>
+            <id>public</id>
+            <name>aliyun nexus</name>
+            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>public</id>
+            <name>aliyun nexus</name>
+            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
 
     <!-- 插件集合 -->
     <build>
@@ -130,7 +168,7 @@
                 <version>2.8.2</version>
                 <configuration>
                     <altDeploymentRepository>
-                        maven.repo::default::file://${project.build.directory}/mvn-repo
+                        maven.repo::default::file://${project.basedir}/mvn-repo
                     </altDeploymentRepository>
                 </configuration>
             </plugin>
@@ -138,25 +176,25 @@
             <plugin>
                 <groupId>com.github.github</groupId>
                 <artifactId>site-maven-plugin</artifactId>
-                <version>0.11</version>
+                <version>0.12</version>
                 <executions>
                     <execution>
                         <goals>
                             <goal>site</goal>
                         </goals>
                         <phase>site</phase>
-                        <!-- GitHub 全局配置 -->
-                        <configuration>
-                            <server>github</server>
-                            <repositoryOwner>weizhiwen</repositoryOwner>
-                            <repositoryName>github-maven-repository</repositoryName>
-                            <merge>true</merge>
-                            <message>init</message>
-                            <outputDirectory>${project.build.directory}/mvn-repo</outputDirectory>
-                            <branch>refs/heads/mvn-repo</branch>
-                        </configuration>
                     </execution>
                 </executions>
+                <!-- GitHub 全局配置 -->
+                <configuration>
+                    <server>github</server>
+                    <repositoryOwner>weizhiwen</repositoryOwner>
+                    <repositoryName>github-maven-repository</repositoryName>
+                    <merge>true</merge>
+                    <message>init</message>
+                    <outputDirectory>${project.basedir}/mvn-repo</outputDirectory>
+                    <branch>refs/heads/mvn-repo</branch>
+                </configuration>
             </plugin>
             <!-- Maven 管理源码插件 -->
             <plugin>
