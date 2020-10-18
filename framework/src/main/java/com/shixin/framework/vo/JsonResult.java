@@ -1,12 +1,17 @@
 package com.shixin.framework.vo;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
+ * Json 结果类，用来封装接口返回的JSON数据格式
+ *
  * @author shixin
  * @date 2020/10/11 9:22 上午
  */
 @AllArgsConstructor
+@Data
 public class JsonResult<T> extends BaseResult {
     enum Status {
         /**
@@ -45,7 +50,7 @@ public class JsonResult<T> extends BaseResult {
      * 请求成功
      */
     public static JsonResult<String> ok() {
-        return new JsonResult<String>(Status.OK.code, Status.OK.msg, null);
+        return new JsonResult<>(Status.OK.code, Status.OK.msg, null);
     }
 
     /**

@@ -9,24 +9,33 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>framework</artifactId>
-    <name>framework</name>
+    <artifactId>dependency</artifactId>
+    <name>dependency</name>
     <version>${revision}</version>
-    <description>框架相关类，该模块包含Spring Boot 框架所需的常用类</description>
-    <packaging>jar</packaging>
+    <description>框架依赖模块，方便引入框架时导入各个模块</description>
+    <packaging>pom</packaging>
 
     <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-commons</artifactId>
-        </dependency>
         <dependency>
             <groupId>com.shixin</groupId>
             <artifactId>commons</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.shixin</groupId>
+            <artifactId>framework</artifactId>
+        </dependency>
     </dependencies>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${springboot.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
 </project>

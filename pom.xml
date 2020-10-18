@@ -13,6 +13,7 @@
     <modules>
         <module>commons</module>
         <module>framework</module>
+        <module>dependency</module>
     </modules>
 
     <!-- 属性常量 -->
@@ -27,11 +28,6 @@
         <mysql.jdbc.version>8.0.15</mysql.jdbc.version>
         <github.global.server>github</github.global.server>
     </properties>
-
-    <!-- 项目依赖 -->
-    <dependencies>
-
-    </dependencies>
 
     <!-- 项目依赖的管理 -->
     <dependencyManagement>
@@ -88,14 +84,6 @@
         </dependencies>
     </dependencyManagement>
 
-    <!-- 发布管理 -->
-    <distributionManagement>
-        <repository>
-            <id>maven.repo</id>
-            <name>Local Staging Repository</name>
-            <url>file://${project.basedir}/mvn-repo</url>
-        </repository>
-    </distributionManagement>
 
     <!-- Maven 镜像配置 -->
     <repositories>
@@ -125,32 +113,8 @@
 
     <!-- 插件集合 -->
     <build>
+        <finalName>${project.artifactId}</finalName>
         <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>flatten-maven-plugin</artifactId>
-                <version>1.1.0</version>
-                <inherited>true</inherited>
-                <executions>
-                    <execution>
-                        <!-- Tidy up all POMs before they are published -->
-                        <id>flatten</id>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>flatten</goal>
-                        </goals>
-                        <configuration>
-                            <updatePomFile>true</updatePomFile>
-                            <flattenMode>oss</flattenMode>
-                            <pomElements>
-                                <parent>expand</parent>
-                                <distributionManagement>remove</distributionManagement>
-                                <repositories>remove</repositories>
-                            </pomElements>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -161,14 +125,13 @@
                 </configuration>
                 <version>3.8.1</version>
             </plugin>
-
             <!-- Maven 部署到本地插件 -->
             <plugin>
                 <artifactId>maven-deploy-plugin</artifactId>
                 <version>2.8.2</version>
                 <configuration>
                     <altDeploymentRepository>
-                        maven.repo::default::file://${project.basedir}/mvn-repo
+                        maven.repo::default::file://${project.build.directory}/mvn-repo/
                     </altDeploymentRepository>
                 </configuration>
             </plugin>
@@ -182,7 +145,7 @@
                         <goals>
                             <goal>site</goal>
                         </goals>
-                        <phase>site</phase>
+                        <phase>deploy</phase>
                     </execution>
                 </executions>
                 <!-- GitHub 全局配置 -->
@@ -191,9 +154,9 @@
                     <repositoryOwner>weizhiwen</repositoryOwner>
                     <repositoryName>github-maven-repository</repositoryName>
                     <merge>true</merge>
-                    <message>init</message>
-                    <outputDirectory>${project.basedir}/mvn-repo</outputDirectory>
-                    <branch>refs/heads/mvn-repo</branch>
+                    <message>测试框架插件</message>
+                    <outputDirectory>${project.build.directory}/mvn-repo/</outputDirectory>
+                    <branch>refs/heads/shixin-spring-boot</branch>
                 </configuration>
             </plugin>
             <!-- Maven 管理源码插件 -->
@@ -212,4 +175,13 @@
             </plugin>
         </plugins>
     </build>
+
+    <!-- 发布管理 -->
+    <distributionManagement>
+        <repository>
+            <id>maven.repo</id>
+            <name>Local Staging Repository</name>
+            <url>file://${project.build.directory}/mvn-repo/</url>
+        </repository>
+    </distributionManagement>
 </project>
