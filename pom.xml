@@ -154,7 +154,7 @@
                     <repositoryOwner>weizhiwen</repositoryOwner>
                     <repositoryName>github-maven-repository</repositoryName>
                     <merge>true</merge>
-                    <message>测试框架插件</message>
+                    <message>优化框架结构和代码</message>
                     <outputDirectory>${project.build.directory}/mvn-repo/</outputDirectory>
                     <branch>refs/heads/shixin-spring-boot</branch>
                 </configuration>
