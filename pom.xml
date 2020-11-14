@@ -154,7 +154,7 @@
                     <repositoryOwner>weizhiwen</repositoryOwner>
                     <repositoryName>github-maven-repository</repositoryName>
                     <merge>true</merge>
-                    <message>优化框架结构和代码</message>
+                    <message>再次部署</message>
                     <outputDirectory>${project.build.directory}/mvn-repo/</outputDirectory>
                     <branch>refs/heads/shixin-spring-boot</branch>
                 </configuration>
@@ -162,7 +162,7 @@
             <!-- Maven 管理源码插件 -->
             <plugin>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>3.2.1</version>
+                <version>3.2.0</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
