@@ -3,16 +3,16 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>shixin-spring-boot</artifactId>
+        <artifactId>shixin-spring-boot-parent</artifactId>
         <groupId>com.shixin</groupId>
         <version>${revision}</version>
-        <relativePath>../pom.xml</relativePath>
+        <relativePath>../shixin-spring-boot-parent</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>commons</artifactId>
-    <name>commons</name>
+    <artifactId>shixin-spring-boot-commons</artifactId>
+    <name>shixin-spring-boot-commons</name>
     <version>${revision}</version>
-    <description>公共工具类，该模块包含整个框架所需的工具类，其他模块依赖该模块中的类</description>
+    <description>公共类模块，该模块包含整个框架所需的公共类，其他模块依赖该模块中的类</description>
     <packaging>jar</packaging>
 
     <dependencies>

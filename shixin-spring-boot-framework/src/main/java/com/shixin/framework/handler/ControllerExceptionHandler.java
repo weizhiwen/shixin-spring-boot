@@ -5,14 +5,12 @@ import com.shixin.commons.exception.QueryException;
 import com.shixin.framework.exception.ParamNotValidException;
 import com.shixin.framework.vo.BaseResult;
 import com.shixin.framework.vo.JsonResult;
-
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.stream.Collectors;
-
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * 处理RestController中的异常

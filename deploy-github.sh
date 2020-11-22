@@ -1,1 +1,2 @@
-./mvnw site:site
+#!/bin/bash
+./mvnw clean deploy

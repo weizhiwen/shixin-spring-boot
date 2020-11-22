@@ -2,186 +2,147 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>com.shixin</groupId>
-    <artifactId>shixin-spring-boot</artifactId>
-    <name>shixin-spring-boot</name>
-    <version>${revision}</version>
-    <packaging>pom</packaging>
-    <description>士心 Spring Boot 自定制框架的父级模块，其子模块集成该模块</description>
-    <!-- 子模块集合 -->
-    <modules>
-        <module>commons</module>
-        <module>framework</module>
-        <module>dependency</module>
-    </modules>
-
-    <!-- 属性常量 -->
-    <properties>
-        <java.version>11</java.version>
-        <revision>0.1</revision>
-        <springboot.version>2.2.10.RELEASE</springboot.version>
-        <lombok.version>1.18.12</lombok.version>
-        <hutool.version>5.4.4</hutool.version>
-        <jpa.json.version>2.10.0</jpa.json.version>
-        <jjwt.version>0.9.1</jjwt.version>
-        <mysql.jdbc.version>8.0.15</mysql.jdbc.version>
-        <github.global.server>github</github.global.server>
-    </properties>
-
-    <!-- 项目依赖的管理 -->
-    <dependencyManagement>
-        <dependencies>
-            <!-- Spring Boot 框架依赖 -->
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>${springboot.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>com.shixin</groupId>
-                <artifactId>commons</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.shixin</groupId>
-                <artifactId>framework</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <!-- 第三方库依赖 -->
-            <!-- lombok -->
-            <dependency>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok</artifactId>
-                <version>${lombok.version}</version>
-            </dependency>
-            <!-- Hutool 工具类 -->
-            <dependency>
-                <groupId>cn.hutool</groupId>
-                <artifactId>hutool-all</artifactId>
-                <version>${hutool.version}</version>
-            </dependency>
-            <!-- mysql 数据库连接库 -->
-            <dependency>
-                <groupId>mysql</groupId>
-                <artifactId>mysql-connector-java</artifactId>
-                <version>${mysql.jdbc.version}</version>
-            </dependency>
-            <!-- JPA 支持 Json -->
-            <dependency>
-                <groupId>com.vladmihalcea</groupId>
-                <artifactId>hibernate-types-52</artifactId>
-                <version>${jpa.json.version}</version>
-            </dependency>
-            <!-- jwt -->
-            <dependency>
-                <groupId>io.jsonwebtoken</groupId>
-                <artifactId>jjwt</artifactId>
-                <version>${jjwt.version}</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
-
-    <!-- Maven 镜像配置 -->
-    <repositories>
-        <repository>
-            <id>public</id>
-            <name>aliyun nexus</name>
-            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-        </repository>
-    </repositories>
-
-    <pluginRepositories>
-        <pluginRepository>
-            <id>public</id>
-            <name>aliyun nexus</name>
-            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </pluginRepository>
-    </pluginRepositories>
-
-    <!-- 插件集合 -->
-    <build>
-        <finalName>${project.artifactId}</finalName>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
-                    <encoding>UTF-8</encoding>
-                </configuration>
-                <version>3.8.1</version>
-            </plugin>
-            <!-- Maven 部署到本地插件 -->
-            <plugin>
-                <artifactId>maven-deploy-plugin</artifactId>
-                <version>2.8.2</version>
-                <configuration>
-                    <altDeploymentRepository>
-                        maven.repo::default::file://${project.build.directory}/mvn-repo/
-                    </altDeploymentRepository>
-                </configuration>
-            </plugin>
-            <!-- Maven 部署到站点插件 -->
-            <plugin>
-                <groupId>com.github.github</groupId>
-                <artifactId>site-maven-plugin</artifactId>
-                <version>0.12</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>site</goal>
-                        </goals>
-                        <phase>deploy</phase>
-                    </execution>
-                </executions>
-                <!-- GitHub 全局配置 -->
-                <configuration>
-                    <server>github</server>
-                    <repositoryOwner>weizhiwen</repositoryOwner>
-                    <repositoryName>github-maven-repository</repositoryName>
-                    <merge>true</merge>
-                    <message>再次部署</message>
-                    <outputDirectory>${project.build.directory}/mvn-repo/</outputDirectory>
-                    <branch>refs/heads/shixin-spring-boot</branch>
-                </configuration>
-            </plugin>
-            <!-- Maven 管理源码插件 -->
-            <plugin>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>3.2.0</version>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>jar-no-fork</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
-
-    <!-- 发布管理 -->
-    <distributionManagement>
-        <repository>
-            <id>maven.repo</id>
-            <name>Local Staging Repository</name>
-            <url>file://${project.build.directory}/mvn-repo/</url>
-        </repository>
-    </distributionManagement>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.shixin</groupId>
+	<artifactId>shixin-spring-boot</artifactId>
+	<name>shixin-spring-boot</name>
+	<version>${revision}</version>
+	<packaging>pom</packaging>
+	<description>士心 Spring Boot 框架，包含框架所有子模块</description>
+	
+	<!-- 子模块集合 -->
+	<modules>
+		<module>shixin-spring-boot-commons</module>
+		<module>shixin-spring-boot-framework</module>
+		<module>shixin-spring-boot-parent</module>
+		<module>shixin-spring-boot-dependencies</module>
+	</modules>
+	
+	<properties>
+		<!-- 框架版本号 -->
+		<revision>0.0.1</revision>
+		<!-- Java版本号-->
+		<java.version>11</java.version>
+		<!-- Github服务器 -->
+		<github.server>github</github.server>
+		<!-- Github用户名 -->
+		<github.username>weizhiwen</github.username>
+		<!-- Github仓库名 -->
+		<github.repository>shixin-spring-boot</github.repository>
+		<!-- 版本发布描述 -->
+		<deploy.description>确立项目结构</deploy.description>
+		<!-- 发布的分支 -->
+		<deploy.branch>mvn-repo</deploy.branch>
+		<!-- 占位符替换插件 -->
+		<flatten-maven-plugin.version>1.2.5</flatten-maven-plugin.version>
+		<!-- 编译插件 -->
+		<maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+		<!-- 源码发布插件 -->
+		<maven-source-plugin.version>3.2.1</maven-source-plugin.version>
+		<!-- 发布到本地插件 -->
+		<maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
+		<!-- 发布到Github站点插件-->
+		<github-site-maven-plugin.version>0.12</github-site-maven-plugin.version>
+	</properties>
+	
+	<!-- Maven 仓库地址 -->
+	<repositories>
+		<repository>
+			<id>public</id>
+			<name>aliyun nexus</name>
+			<url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>
+	</repositories>
+	
+	<!-- Maven 插件仓库地址 -->
+	<pluginRepositories>
+		<pluginRepository>
+			<id>public</id>
+			<name>aliyun nexus</name>
+			<url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+	
+	<!-- 插件集合 -->
+	<build>
+		<finalName>${project.artifactId}</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+					<encoding>UTF-8</encoding>
+				</configuration>
+				<version>${maven-compiler-plugin.version}</version>
+			</plugin>
+			<!-- Maven 部署到本地 -->
+			<plugin>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<version>${maven-deploy-plugin.version}</version>
+				<configuration>
+					<altDeploymentRepository>
+						maven.repo::default::file://${project.build.directory}/mvn-repo/
+					</altDeploymentRepository>
+				</configuration>
+			</plugin>
+			<!-- Maven 部署到站点 -->
+			<plugin>
+				<groupId>com.github.github</groupId>
+				<artifactId>site-maven-plugin</artifactId>
+				<version>${github-site-maven-plugin.version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>site</goal>
+						</goals>
+						<phase>deploy</phase>
+					</execution>
+				</executions>
+				<!-- GitHub 全局配置 -->
+				<configuration>
+					<server>${github.server}</server>
+					<repositoryOwner>${github.username}</repositoryOwner>
+					<repositoryName>${github.repository}</repositoryName>
+					<merge>true</merge>
+					<message>${deploy.description}</message>
+					<outputDirectory>${project.build.directory}/${deploy.branch}/</outputDirectory>
+					<branch>refs/heads/${deploy.branch}</branch>
+				</configuration>
+			</plugin>
+			<!-- Maven 管理源码插件 -->
+			<plugin>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>${maven-source-plugin.version}</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<phase>package</phase>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+	
+	<!-- 发布到本地 -->
+	<distributionManagement>
+		<repository>
+			<id>maven.repo</id>
+			<name>Local Staging Repository</name>
+			<url>file://${project.build.directory}/mvn-repo/</url>
+		</repository>
+	</distributionManagement>
 </project>
