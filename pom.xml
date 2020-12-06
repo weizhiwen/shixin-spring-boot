@@ -13,6 +13,7 @@
 	<!-- 子模块集合 -->
 	<modules>
 		<module>shixin-spring-boot-commons</module>
+		<module>shixin-spring-boot-dal</module>
 		<module>shixin-spring-boot-framework</module>
 		<module>shixin-spring-boot-parent</module>
 		<module>shixin-spring-boot-dependencies</module>
@@ -20,7 +21,7 @@
 	
 	<properties>
 		<!-- 框架版本号 -->
-		<revision>0.0.1</revision>
+		<revision>0.1.9</revision>
 		<!-- Java版本号-->
 		<java.version>11</java.version>
 		<!-- Github服务器 -->
@@ -30,7 +31,7 @@
 		<!-- Github仓库名 -->
 		<github.repository>shixin-spring-boot</github.repository>
 		<!-- 版本发布描述 -->
-		<deploy.description>确立项目结构</deploy.description>
+		<deploy.description>添加请求方法有误异常处理</deploy.description>
 		<!-- 发布的分支 -->
 		<deploy.branch>mvn-repo</deploy.branch>
 		<!-- 占位符替换插件 -->
@@ -130,6 +131,41 @@
 						<phase>package</phase>
 						<goals>
 							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>flatten-maven-plugin</artifactId>
+				<version>${flatten-maven-plugin.version}</version>
+				<configuration>
+					<updatePomFile>true</updatePomFile>
+					<flattenMode>oss</flattenMode>
+				</configuration>
+				<executions>
+					<execution>
+						<id>flatten</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>flatten</goal>
+						</goals>
+						<configuration>
+							<updatePomFile>true</updatePomFile>
+							<flattenMode>oss</flattenMode>
+							<pomElements>
+								<distributionManagement>remove</distributionManagement>
+								<properties>remove</properties>
+								<repositories>remove</repositories>
+								<pluginRepositories>remove</pluginRepositories>
+							</pomElements>
+						</configuration>
+					</execution>
+					<execution>
+						<id>flatten.clean</id>
+						<phase>clean</phase>
+						<goals>
+							<goal>clean</goal>
 						</goals>
 					</execution>
 				</executions>

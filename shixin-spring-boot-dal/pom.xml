@@ -9,28 +9,28 @@
 		<relativePath>../shixin-spring-boot-parent</relativePath>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>shixin-spring-boot-framework</artifactId>
-	<name>shixin-spring-boot-framework</name>
+	<artifactId>shixin-spring-boot-dal</artifactId>
+	<name>shixin-spring-boot-dal</name>
 	<version>${revision}</version>
-	<description>框架相关类，该模块包含Spring Boot 框架所需的常用类</description>
+	<description>数据层模块，该模块包含数据库相关的类，业务代码的数据库访问层依赖该模块</description>
 	<packaging>jar</packaging>
 	
 	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
 		<dependency>
 			<groupId>com.shixin</groupId>
 			<artifactId>shixin-spring-boot-commons</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-core</artifactId>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-commons</artifactId>
+			<artifactId>spring-data-jpa</artifactId>
 		</dependency>
 	</dependencies>
 </project>

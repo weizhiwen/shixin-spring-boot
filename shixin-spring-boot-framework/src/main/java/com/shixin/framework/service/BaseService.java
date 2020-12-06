@@ -1,23 +1,20 @@
 package com.shixin.framework.service;
 
+import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.lang.Assert;
 import com.shixin.commons.util.BeanUtil;
-
 import org.springframework.data.domain.Page;
 
+import javax.validation.constraints.NotNull;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import javax.validation.constraints.NotNull;
-
-import cn.hutool.core.collection.CollectionUtil;
-import cn.hutool.core.lang.Assert;
 
 /**
  * 基础Service层接口，提供Service所需的转换方法，所有Service实现该接口
  *
  * @author shixin
- * @date 2020/10/11 4:24 下午
+ * @date 2020/10/11
  */
 public interface BaseService {
     /**

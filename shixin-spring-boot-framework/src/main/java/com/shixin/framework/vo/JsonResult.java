@@ -91,7 +91,7 @@ public class JsonResult<T> extends BaseResult {
      * @param msg 提示消息
      */
     public static JsonResult<String> unauthorized(String msg) {
-        return new JsonResult<String>(Status.UNAUTHORIZED.code, Status.UNAUTHORIZED.msg, null);
+        return new JsonResult<String>(Status.UNAUTHORIZED.code, msg, null);
     }
 
     /**

@@ -40,11 +40,16 @@
     <dependencies>
         <dependency>
             <groupId>com.shixin</groupId>
-            <artifactId>shixin-spring-boot-commons</artifactId>
+            <artifactId>shixin-spring-boot-framework</artifactId>
         </dependency>
         <dependency>
             <groupId>com.shixin</groupId>
-            <artifactId>shixin-spring-boot-framework</artifactId>
+            <artifactId>shixin-spring-boot-dal</artifactId>
+            <version>0.1.4</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
         </dependency>
     </dependencies>
 
