@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.shixin</groupId>
+  <artifactId>shixin-spring-boot-parent</artifactId>
+  <version>0.1.7</version>
+  <packaging>pom</packaging>
+  <name>shixin-spring-boot-parent</name>
+  <description>模块父类，该模块为其余子模块的父类</description>
+</project>
