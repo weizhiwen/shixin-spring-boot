@@ -8,4 +8,21 @@
   <packaging>pom</packaging>
   <name>shixin-spring-boot-parent</name>
   <description>模块父类，该模块为其余子模块的父类</description>
+  <licenses>
+    <license>
+      <name>MIT License</name>
+      <url>http://www.opensource.org/licenses/mit-license.php</url>
+    </license>
+  </licenses>
+  <developers>
+    <developer>
+      <name>weizhiwen</name>
+      <email>weizhiwen23@gmail.com</email>
+      <url>https://github.com/weizhiwen</url>
+    </developer>
+  </developers>
+  <scm>
+    <connection>https://github.com/weizhiwen/shixin-spring-boot.git/shixin-spring-boot-dependencies/shixin-spring-boot-parent</connection>
+    <url>https://github.com/weizhiwen/shixin-spring-boot/shixin-spring-boot-dependencies/shixin-spring-boot-parent</url>
+  </scm>
 </project>
