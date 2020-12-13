@@ -36,13 +36,11 @@ public abstract class BaseEntity implements Serializable {
     @Column(name = "id")
     private Integer id;
 
-    @Nullable
     @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_time")
     protected Date createTime;
 
-    @Nullable
     @LastModifiedDate
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "update_time")
