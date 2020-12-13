@@ -8,6 +8,23 @@
   <packaging>pom</packaging>
   <name>shixin-spring-boot-dependencies</name>
   <description>框架依赖管理</description>
+  <licenses>
+    <license>
+      <name>MIT License</name>
+      <url>http://www.opensource.org/licenses/mit-license.php</url>
+    </license>
+  </licenses>
+  <developers>
+    <developer>
+      <name>weizhiwen</name>
+      <email>weizhiwen23@gmail.com</email>
+      <url>https://github.com/weizhiwen</url>
+    </developer>
+  </developers>
+  <scm>
+    <connection>https://github.com/weizhiwen/shixin-spring-boot.git/shixin-spring-boot-dependencies</connection>
+    <url>https://github.com/weizhiwen/shixin-spring-boot/shixin-spring-boot-dependencies</url>
+  </scm>
   <properties>
     <lombok.version>1.18.12</lombok.version>
     <xml-maven-plugin.version>1.0.2</xml-maven-plugin.version>
