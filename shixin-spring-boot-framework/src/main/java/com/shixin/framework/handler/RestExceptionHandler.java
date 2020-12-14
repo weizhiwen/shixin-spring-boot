@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
 public class RestExceptionHandler {
 
     /**
-     *
+     * 请求方式异常
      */
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public BaseResult handler(HttpRequestMethodNotSupportedException ex) {

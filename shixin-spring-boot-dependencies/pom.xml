@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<parent>
 		<artifactId>shixin-spring-boot</artifactId>
-		<groupId>com.shixin</groupId>
+		<groupId>com.github.weizhiwen</groupId>
 		<version>${revision}</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
@@ -13,6 +13,7 @@
 	<name>shixin-spring-boot-dependencies</name>
 	<version>${revision}</version>
 	<description>框架依赖管理</description>
+	<url>https://github.com/weizhiwen/shixin-spring-boot/tree/release/shixin-spring-boot-dependencies</url>
 	<packaging>pom</packaging>
 	
 	<properties>
@@ -40,17 +41,17 @@
 			</dependency>
 			<!-- Shixin SpringBoot 依赖-->
 			<dependency>
-				<groupId>com.shixin</groupId>
+				<groupId>com.github.weizhiwen</groupId>
 				<artifactId>shixin-spring-boot-commons</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>com.shixin</groupId>
+				<groupId>com.github.weizhiwen</groupId>
 				<artifactId>shixin-spring-boot-framework</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>com.shixin</groupId>
+				<groupId>com.github.weizhiwen</groupId>
 				<artifactId>shixin-spring-boot-dal</artifactId>
 				<version>${project.version}</version>
 			</dependency>
