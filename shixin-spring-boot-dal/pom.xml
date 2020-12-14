@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<parent>
 		<artifactId>shixin-spring-boot-parent</artifactId>
-		<groupId>com.shixin</groupId>
+		<groupId>com.github.weizhiwen</groupId>
 		<version>${revision}</version>
 		<relativePath>../shixin-spring-boot-parent</relativePath>
 	</parent>
@@ -13,11 +13,12 @@
 	<name>shixin-spring-boot-dal</name>
 	<version>${revision}</version>
 	<description>数据层模块，该模块包含数据库相关的类，业务代码的数据库访问层依赖该模块</description>
+	<url>https://github.com/weizhiwen/shixin-spring-boot/tree/release/shixin-spring-boot-dal</url>
 	<packaging>jar</packaging>
 	
 	<dependencies>
 		<dependency>
-			<groupId>com.shixin</groupId>
+			<groupId>com.github.weizhiwen</groupId>
 			<artifactId>shixin-spring-boot-commons</artifactId>
 		</dependency>
 		<dependency>

@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>shixin-spring-boot-parent</artifactId>
-        <groupId>com.shixin</groupId>
+        <groupId>com.github.weizhiwen</groupId>
         <version>${revision}</version>
         <relativePath>../shixin-spring-boot-parent</relativePath>
     </parent>
@@ -12,6 +12,7 @@
     <artifactId>shixin-spring-boot-commons</artifactId>
     <name>shixin-spring-boot-commons</name>
     <version>${revision}</version>
+    <url>https://github.com/weizhiwen/shixin-spring-boot/tree/release/shixin-spring-boot-commons</url>
     <description>公共类模块，该模块包含整个框架所需的公共类，其他模块依赖该模块中的类</description>
     <packaging>jar</packaging>
 

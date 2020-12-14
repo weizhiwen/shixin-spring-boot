@@ -3,11 +3,12 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.shixin</groupId>
+    <groupId>com.github.weizhiwen</groupId>
     <artifactId>shixin-spring-boot</artifactId>
     <name>shixin-spring-boot</name>
     <version>${revision}</version>
     <packaging>pom</packaging>
+    <url>https://github.com/weizhiwen/shixin-spring-boot</url>
     <description>士心 Spring Boot 框架，包含框架所有子模块</description>
 
     <!-- 子模块集合 -->
@@ -21,7 +22,7 @@
 
     <properties>
         <!-- 框架版本号 -->
-        <revision>0.1.10</revision>
+        <revision>0.1.11</revision>
         <!-- Java版本号-->
         <java.version>11</java.version>
         <!-- Github服务器 -->
@@ -40,6 +41,10 @@
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <!-- 源码发布插件 -->
         <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
+        <!-- 源码Javadoc插件 -->
+        <maven-javadoc-plugin.version>3.2.0</maven-javadoc-plugin.version>
+        <!-- GPG插件 -->
+        <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
         <!-- 发布到本地插件 -->
         <maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
         <!-- 发布到Github站点插件-->
@@ -88,53 +93,53 @@
                 <version>${maven-compiler-plugin.version}</version>
             </plugin>
             <!-- Maven 部署到本地 -->
-            <plugin>
-                <artifactId>maven-deploy-plugin</artifactId>
-                <version>${maven-deploy-plugin.version}</version>
-                <configuration>
-                    <altDeploymentRepository>
-                        maven.repo::default::file://${project.build.directory}/mvn-repo/
-                    </altDeploymentRepository>
-                </configuration>
-            </plugin>
+<!--            <plugin>-->
+<!--                <artifactId>maven-deploy-plugin</artifactId>-->
+<!--                <version>${maven-deploy-plugin.version}</version>-->
+<!--                <configuration>-->
+<!--                    <altDeploymentRepository>-->
+<!--                        maven.repo::default::file://${project.build.directory}/mvn-repo/-->
+<!--                    </altDeploymentRepository>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
             <!-- Maven 部署到站点 -->
-            <plugin>
-                <groupId>com.github.github</groupId>
-                <artifactId>site-maven-plugin</artifactId>
-                <version>${github-site-maven-plugin.version}</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>site</goal>
-                        </goals>
-                        <phase>deploy</phase>
-                    </execution>
-                </executions>
-                <!-- GitHub 全局配置 -->
-                <configuration>
-                    <server>${github.server}</server>
-                    <repositoryOwner>${github.username}</repositoryOwner>
-                    <repositoryName>${github.repository}</repositoryName>
-                    <merge>true</merge>
-                    <message>${deploy.description}</message>
-                    <outputDirectory>${project.build.directory}/${deploy.branch}/</outputDirectory>
-                    <branch>refs/heads/${deploy.branch}</branch>
-                </configuration>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>com.github.github</groupId>-->
+<!--                <artifactId>site-maven-plugin</artifactId>-->
+<!--                <version>${github-site-maven-plugin.version}</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <goals>-->
+<!--                            <goal>site</goal>-->
+<!--                        </goals>-->
+<!--                        <phase>deploy</phase>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--                &lt;!&ndash; GitHub 全局配置 &ndash;&gt;-->
+<!--                <configuration>-->
+<!--                    <server>${github.server}</server>-->
+<!--                    <repositoryOwner>${github.username}</repositoryOwner>-->
+<!--                    <repositoryName>${github.repository}</repositoryName>-->
+<!--                    <merge>true</merge>-->
+<!--                    <message>${deploy.description}</message>-->
+<!--                    <outputDirectory>${project.build.directory}/${deploy.branch}/</outputDirectory>-->
+<!--                    <branch>refs/heads/${deploy.branch}</branch>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
             <!-- Maven 管理源码插件 -->
-            <plugin>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>${maven-source-plugin.version}</version>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>jar-no-fork</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+<!--            <plugin>-->
+<!--                <artifactId>maven-source-plugin</artifactId>-->
+<!--                <version>${maven-source-plugin.version}</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>attach-sources</id>-->
+<!--                        <phase>package</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>jar-no-fork</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>flatten-maven-plugin</artifactId>
@@ -191,10 +196,75 @@
     </developers>
 
     <scm>
-        <tag>master</tag>
-        <connection>https://github.com/weizhiwen/shixin-spring-boot</connection>
-        <developerConnection>https://github.com/weizhiwen</developerConnection>
-        <url>https://github.com/weizhiwen/think-free-base/tree/master/think-swagger-ui-starter</url>
+        <url>https://github.com/weizhiwen/shixin-spring-boot</url>
+        <connection>https://github.com/weizhiwen/shixin-spring-boot.git</connection>
     </scm>
 
+    <profiles>
+        <profile>
+            <id>default</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>${maven-source-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>${maven-javadoc-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <additionalJOptions>
+                                <additionalJOption>-Xdoclint:none</additionalJOption>
+                            </additionalJOptions>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>${maven-gpg-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+            <!-- 发布 -->
+            <distributionManagement>
+                <snapshotRepository>
+                    <id>ossrh</id>
+                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+                </snapshotRepository>
+                <repository>
+                    <id>ossrh</id>
+                    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+                </repository>
+            </distributionManagement>
+        </profile>
+    </profiles>
 </project>
