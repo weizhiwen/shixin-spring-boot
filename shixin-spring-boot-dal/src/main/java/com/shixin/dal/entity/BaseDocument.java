@@ -1,37 +1,34 @@
 package com.shixin.dal.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.*;
+import javax.persistence.EntityListeners;
+import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 基础数据库实体类，其他实体类继承该类
+ * 基础数据表类，其他Mongo实体类继承该类
  *
  * @author shixin
+ * @date 2021/2/25
  */
 @Data
 @EqualsAndHashCode
-@MappedSuperclass
+@NoArgsConstructor
 @DynamicInsert
 @DynamicUpdate
 @EntityListeners({AuditingEntityListener.class})
-@NoArgsConstructor
-@Where(clause = "deleted = 0")
-public abstract class BaseEntity implements Serializable {
-
+public abstract class BaseDocument implements Serializable {
     @Id
-    private Integer id;
+    String id;
 
     @CreatedDate
     protected Date createTime;

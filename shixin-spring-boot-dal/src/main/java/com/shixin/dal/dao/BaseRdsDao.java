@@ -8,13 +8,13 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 /**
- * Dao层基础接口
+ * 关系型数据库 Dao层基础接口
  *
  * @param <T> 实体类
  * @author shixin
  * @date 2020/12/5
  */
-public interface BaseDao<T extends BaseEntity> {
+public interface BaseRdsDao<T extends BaseEntity> {
 
     /**
      * 创建对象
@@ -44,9 +44,10 @@ public interface BaseDao<T extends BaseEntity> {
      * 根据id更新对象，可以设置Null值是否更新
      *
      * @param t          待更新对象
+     * @param ignoreNull
      * @return 更新后的对象
      */
-    T updateWithNull(T t);
+    T update(T t, Boolean ignoreNull);
 
     /**
      * 根据id查找对象

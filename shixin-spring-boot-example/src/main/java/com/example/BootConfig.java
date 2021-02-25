@@ -1,4 +1,4 @@
-package com.shixin.framework.config;
+package com.example;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -10,6 +10,6 @@ import org.springframework.context.annotation.Configuration;
  * @date 2020/10/18 9:46 上午
  */
 @Configuration
-@ComponentScan({"com.shixin.framework.*"})
+@ComponentScan(value = {"com.shixin.framework.*"})
 public class BootConfig {
 }

@@ -19,7 +19,7 @@
 	<properties>
 		<java.version>11</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<springboot.version>2.2.10.RELEASE</springboot.version>
+		<springboot.version>2.3.9.RELEASE</springboot.version>
 		<lombok.version>1.18.12</lombok.version>
 		<hutool.version>5.4.4</hutool.version>
 		<jpa.json.version>2.10.0</jpa.json.version>
@@ -67,6 +67,12 @@
 				<groupId>cn.hutool</groupId>
 				<artifactId>hutool-all</artifactId>
 				<version>${hutool.version}</version>
+			</dependency>
+			<!-- Mybatis-Plus-->
+			<dependency>
+				<groupId>com.baomidou</groupId>
+				<artifactId>mybatis-plus</artifactId>
+				<version>3.4.2</version>
 			</dependency>
 			<!-- mysql 数据库连接库 -->
 			<dependency>

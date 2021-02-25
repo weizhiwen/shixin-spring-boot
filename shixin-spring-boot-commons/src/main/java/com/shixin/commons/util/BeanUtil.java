@@ -15,8 +15,12 @@ public final class BeanUtil {
         cn.hutool.core.bean.BeanUtil.copyProperties(source, target, OPTIONS_IGNORE_NULL);
     }
 
-    public static void copyWithNull(Object source, Object target) {
-        cn.hutool.core.bean.BeanUtil.copyProperties(source, target, OPTIONS_WITH_NULL);
+    public static void copy(Object source, Object target, Boolean ignoreNull) {
+        if (!ignoreNull) {
+            cn.hutool.core.bean.BeanUtil.copyProperties(source, target, OPTIONS_WITH_NULL);
+        } else {
+            copy(source, target);
+        }
     }
 
     public static <T> T copy(Object source, Class<T> clazz) {
@@ -25,9 +29,13 @@ public final class BeanUtil {
         return target;
     }
 
-    public static <T> T copyWithNull(Object source, Class<T> clazz) {
-        T target = ReflectUtil.newInstance(clazz);
-        cn.hutool.core.bean.BeanUtil.copyProperties(source, target, OPTIONS_WITH_NULL);
-        return target;
+    public static <T> T copy(Object source, Class<T> clazz, Boolean ignoreNull) {
+        if (!ignoreNull) {
+            T target = ReflectUtil.newInstance(clazz);
+            cn.hutool.core.bean.BeanUtil.copyProperties(source, target, OPTIONS_WITH_NULL);
+            return target;
+        } else {
+            return copy(source, clazz);
+        }
     }
 }

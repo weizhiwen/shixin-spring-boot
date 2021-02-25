@@ -3,7 +3,6 @@ package com.shixin.dal.dao;
 import cn.hutool.core.lang.Assert;
 import com.shixin.commons.util.BeanUtil;
 import com.shixin.dal.entity.BaseEntity;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -23,7 +22,7 @@ import java.util.Objects;
  */
 @NoRepositoryBean
 @Slf4j
-public abstract class BaseDaoImpl<R extends JpaRepository<T, Integer>, T extends BaseEntity> implements BaseDao<T> {
+public abstract class BaseRdsDaoImpl<R extends JpaRepository<T, Integer>, T extends BaseEntity> implements BaseRdsDao<T> {
 
     @Autowired
     protected R repository;
@@ -51,11 +50,11 @@ public abstract class BaseDaoImpl<R extends JpaRepository<T, Integer>, T extends
     }
 
     @Override
-    public T updateWithNull(T t) {
+    public T update(T t, Boolean ignoreNull) {
         Assert.notNull(t, "待更新对象{}不能为空");
         Assert.notNull(t.getId(), "待更新对象Id不能为空");
         var toUpdate = repository.getOne(t.getId());
-        BeanUtil.copyWithNull(t, toUpdate);
+        BeanUtil.copy(t, toUpdate, ignoreNull);
         return repository.save(toUpdate);
     }
 
