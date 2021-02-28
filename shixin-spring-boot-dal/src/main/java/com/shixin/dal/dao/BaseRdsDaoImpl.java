@@ -122,9 +122,7 @@ public abstract class BaseRdsDaoImpl<R extends JpaRepository<T, Integer>, T exte
     public void deleteByIds(List<Integer> ids) {
         Assert.notEmpty(ids, "删除Id列表不能为空");
         List<T> list = repository.findAllById(ids);
-        list.forEach(item->{
-            item.setDeleted(null);
-        });
+        list.forEach(item-> item.setDeleted(null));
         repository.saveAll(list);
     }
 

@@ -130,11 +130,18 @@ public interface BaseMongoDao<D extends BaseDocument> {
     Page<D> pageQuery(D d, Pageable pageable);
 
     /**
-     * 根据id删除对象 默认逻辑删除
+     * 根据id删除对象 逻辑删除
      *
      * @param id 对象Id
      */
     void deleteById(String id);
+
+    /**
+     * 根据id列表删除对象列表 逻辑删除
+     *
+     * @param id 对象Id
+     */
+    void deleteByIds(List<String> ids);
 
     /**
      * 根据对象删除对象 默认逻辑删除

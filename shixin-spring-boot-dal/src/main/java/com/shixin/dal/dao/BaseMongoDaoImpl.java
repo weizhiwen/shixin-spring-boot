@@ -132,6 +132,14 @@ public abstract class BaseMongoDaoImpl<R extends MongoRepository<D, String>, D e
     }
 
     @Override
+    public void deleteByIds(List<String> ids) {
+        Assert.notEmpty(ids, "删除ID列表不能为空");
+        Iterable<D> list = repository.findAllById(ids);
+        list.forEach(item-> item.setDeleted(null));
+        repository.saveAll(list);
+    }
+
+    @Override
     public void delete(D d) {
         Assert.notNull(d.getId(), "删除ID不能为空");
         var toDelete = repository.findOne(Example.of(d)).orElse(null);
