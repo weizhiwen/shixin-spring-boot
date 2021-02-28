@@ -6,11 +6,11 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.EntityListeners;
-import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -21,11 +21,8 @@ import java.util.Date;
  * @date 2021/2/25
  */
 @Data
-@EqualsAndHashCode
-@NoArgsConstructor
 @DynamicInsert
 @DynamicUpdate
-@EntityListeners({AuditingEntityListener.class})
 public abstract class BaseDocument implements Serializable {
     @Id
     String id;

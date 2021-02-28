@@ -2,7 +2,6 @@ package com.shixin.framework.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 /**
  * Json 结果类，用来封装接口返回的JSON数据格式
@@ -59,14 +58,14 @@ public class JsonResult<T> extends BaseResult {
      * @param data 数据
      */
     public static <T> JsonResult<T> ok(T data) {
-        return new JsonResult<T>(Status.OK.code, Status.OK.msg, data);
+        return new JsonResult<>(Status.OK.code, Status.OK.msg, data);
     }
 
     /**
      * 参数或业务警告
      */
     public static JsonResult<String> warn() {
-        return new JsonResult<String>(Status.WARN.code, Status.WARN.msg, null);
+        return new JsonResult<>(Status.WARN.code, Status.WARN.msg, null);
     }
 
     /**
@@ -75,14 +74,14 @@ public class JsonResult<T> extends BaseResult {
      * @param msg 警告消息
      */
     public static JsonResult<String> warn(String msg) {
-        return new JsonResult<String>(Status.WARN.code, msg, null);
+        return new JsonResult<>(Status.WARN.code, msg, null);
     }
 
     /**
      * 没有认证
      */
     public static JsonResult<String> unauthorized() {
-        return new JsonResult<String>(Status.UNAUTHORIZED.code, Status.UNAUTHORIZED.msg, null);
+        return new JsonResult<>(Status.UNAUTHORIZED.code, Status.UNAUTHORIZED.msg, null);
     }
 
     /**
@@ -91,14 +90,14 @@ public class JsonResult<T> extends BaseResult {
      * @param msg 提示消息
      */
     public static JsonResult<String> unauthorized(String msg) {
-        return new JsonResult<String>(Status.UNAUTHORIZED.code, msg, null);
+        return new JsonResult<>(Status.UNAUTHORIZED.code, msg, null);
     }
 
     /**
      * 没有权限
      */
     public static JsonResult<String> forbidden() {
-        return new JsonResult<String>(Status.FORBIDDEN.code, Status.FORBIDDEN.msg, null);
+        return new JsonResult<>(Status.FORBIDDEN.code, Status.FORBIDDEN.msg, null);
     }
 
     /**
@@ -114,7 +113,7 @@ public class JsonResult<T> extends BaseResult {
      * 没有找到
      */
     public static JsonResult<String> notFound() {
-        return new JsonResult<String>(Status.NOT_FOUND.code, Status.NOT_FOUND.msg, null);
+        return new JsonResult<>(Status.NOT_FOUND.code, Status.NOT_FOUND.msg, null);
     }
 
     /**
@@ -130,7 +129,7 @@ public class JsonResult<T> extends BaseResult {
      * 系统异常
      */
     public static JsonResult<String> error() {
-        return new JsonResult<String>(Status.ERROR.code, Status.ERROR.msg, null);
+        return new JsonResult<>(Status.ERROR.code, Status.ERROR.msg, null);
     }
 
     /**
@@ -139,6 +138,6 @@ public class JsonResult<T> extends BaseResult {
      * @param msg 异常消息
      */
     public static JsonResult<String> error(String msg) {
-        return new JsonResult<String>(Status.ERROR.code, msg, null);
+        return new JsonResult<>(Status.ERROR.code, msg, null);
     }
 }
