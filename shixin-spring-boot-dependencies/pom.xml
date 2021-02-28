@@ -21,7 +21,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<springboot.version>2.3.9.RELEASE</springboot.version>
 		<lombok.version>1.18.12</lombok.version>
-		<hutool.version>5.4.4</hutool.version>
+		<hutool.version>5.5.8</hutool.version>
+		<guava.version>30.1-jre</guava.version>
 		<jpa.json.version>2.10.0</jpa.json.version>
 		<jjwt.version>0.9.1</jjwt.version>
 		<mysql.jdbc.version>8.0.15</mysql.jdbc.version>
@@ -68,6 +69,12 @@
 				<artifactId>hutool-all</artifactId>
 				<version>${hutool.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>com.google.guava</groupId>
+				<artifactId>guava</artifactId>
+				<version>${guava.version}</version>
+			</dependency>
+
 			<!-- Mybatis-Plus-->
 			<dependency>
 				<groupId>com.baomidou</groupId>
