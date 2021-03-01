@@ -133,6 +133,13 @@ public interface BaseRdsDao<T extends BaseEntity> {
     void deleteByIds(List<Integer> ids);
 
     /**
+     * 根据id删除对象 默认逻辑删除
+     *
+     * @param ids 对象Id列表
+     */
+    void deleteByIds(Integer... ids);
+
+    /**
      * 根据对象删除对象 默认逻辑删除
      *
      * @param t 查询对象

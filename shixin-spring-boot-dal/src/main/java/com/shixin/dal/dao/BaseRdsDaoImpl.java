@@ -15,6 +15,7 @@ import org.springframework.data.repository.NoRepositoryBean;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -124,6 +125,11 @@ public abstract class BaseRdsDaoImpl<R extends JpaRepository<T, Integer>, T exte
         List<T> list = repository.findAllById(ids);
         list.forEach(item-> item.setDeleted(null));
         repository.saveAll(list);
+    }
+
+    @Override
+    public void deleteByIds(Integer... ids) {
+        deleteByIds(Arrays.asList(ids));
     }
 
     @Override

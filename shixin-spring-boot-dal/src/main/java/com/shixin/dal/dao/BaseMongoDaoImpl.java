@@ -15,6 +15,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -137,6 +138,11 @@ public abstract class BaseMongoDaoImpl<R extends MongoRepository<D, String>, D e
         Iterable<D> list = repository.findAllById(ids);
         list.forEach(item-> item.setDeleted(null));
         repository.saveAll(list);
+    }
+
+    @Override
+    public void deleteByIds(String... ids) {
+        deleteByIds(Arrays.asList(ids));
     }
 
     @Override
