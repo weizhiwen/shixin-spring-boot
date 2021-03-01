@@ -1,0 +1,90 @@
+### 创建用户
+POST {{baseUrl}}/user
+Content-Type: application/json
+
+{
+  "name": "士心",
+  "password": "shixin"
+}
+
+### 批量创建用户1
+POST {{baseUrl}}/user/batch1
+Content-Type: application/json
+
+### 批量创建用户2
+POST {{baseUrl}}/user/batch2
+Content-Type: application/json
+
+
+### 用户列表
+GET {{baseUrl}}/user
+Content-Type: application/json
+
+### 用户分页列表
+GET {{baseUrl}}/user?page=0&size=10
+Content-Type: application/json
+
+### 用户详情
+GET {{baseUrl}}/user/1
+Content-Type: application/json
+
+
+### 修改用户
+PUT {{baseUrl}}/user/1
+Content-Type: application/json
+
+{
+  "name": "shixin"
+}
+
+### 删除用户
+DELETE {{baseUrl}}/user/1
+Content-Type: application/json
+
+### 创建博客
+POST {{baseUrl}}/blog
+Content-Type: application/json
+
+{
+  "title": "博客标题",
+  "content": "博客内容",
+  "author": "士心"
+}
+
+### 批量创建博客1
+POST {{baseUrl}}/blog/batch1
+Content-Type: application/json
+
+### 批量创建博客2
+POST {{baseUrl}}/blog/batch2
+Content-Type: application/json
+
+### 批量创建博客3
+POST {{baseUrl}}/blog/batch3
+Content-Type: application/json
+
+### 博客列表
+GET {{baseUrl}}/blog
+Content-Type: application/json
+
+### 博客分页列表
+GET {{baseUrl}}/blog?page=0&size=10
+Content-Type: application/json
+
+### 用户详情
+GET {{baseUrl}}/blog/603a52183b87a13e513bb083
+Content-Type: application/json
+
+
+### 修改用户
+PUT {{baseUrl}}/blog/603a52183b87a13e513bb083
+Content-Type: application/json
+
+{
+  "name": "博客标题2"
+}
+
+### 删除用户
+DELETE {{baseUrl}}/blog/603a52183b87a13e513bb083
+Content-Type: application/json
+

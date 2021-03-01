@@ -10,25 +10,31 @@
 
     <properties>
         <java.version>11</java.version>
-        <shixin-spring-boot.version>0.0.1</shixin-spring-boot.version>
+        <shixin-spring-boot.version>0.1.11</shixin-spring-boot.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
     </properties>
 
+    <!-- 使用阿里云仓库 -->
     <repositories>
         <repository>
-            <id>shixin-spring-boot</id>
-            <url>https://raw.github.com/weizhiwen/shixin-spring-boot/mvn-repo</url>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
-            </snapshots>
+            <id>central</id>
+            <url>https://maven.aliyun.com/nexus/content/groups/public</url>
         </repository>
     </repositories>
-    
+
+    <!-- 使用阿里云仓库 -->
+    <pluginRepositories>
+        <pluginRepository>
+            <id>central</id>
+            <url>https://maven.aliyun.com/nexus/content/groups/public</url>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <!-- 依赖管理 -->
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>com.shixin</groupId>
+                <groupId>com.github.weizhiwen</groupId>
                 <artifactId>shixin-spring-boot-dependencies</artifactId>
                 <version>${shixin-spring-boot.version}</version>
                 <type>pom</type>
@@ -37,15 +43,23 @@
         </dependencies>
     </dependencyManagement>
 
+    <!-- 依赖列表 -->
     <dependencies>
         <dependency>
-            <groupId>com.shixin</groupId>
+            <groupId>com.github.weizhiwen</groupId>
             <artifactId>shixin-spring-boot-framework</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.shixin</groupId>
+            <groupId>com.github.weizhiwen</groupId>
             <artifactId>shixin-spring-boot-dal</artifactId>
-            <version>0.1.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-mongodb</artifactId>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>

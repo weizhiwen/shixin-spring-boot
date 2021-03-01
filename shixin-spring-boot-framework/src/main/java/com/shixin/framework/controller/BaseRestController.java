@@ -12,7 +12,6 @@ import lombok.extern.slf4j.Slf4j;
  * @author shixin
  * @date 2020/10/11 10:10 上午
  */
-@RestController
 @Slf4j
 public class BaseRestController {
     protected final JsonResult<String> OK = JsonResult.ok();

@@ -3,12 +3,30 @@ server:
 
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/blog?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2b8&autoReconnect=true&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://localhost:3306/example?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2b8&autoReconnect=true&serverTimezone=Asia/Shanghai&rewriteBatchedStatements=true&useServerPrepStmts=true
     username: root
     password: 123456
   jpa:
-    show-sql: true
+    show-sql: false
     generate-ddl: true
     properties:
       hibernate:
         format_sql: true
+        generate_statistics: true
+        jdbc:
+          batch_size: 1000
+          batch_versioned_data: true
+        order_inserts: true
+        order_updates: true
+  data:
+    mongodb:
+      database: example
+logging:
+  level:
+    com:
+      example: DEBUG
+    org:
+      springframework:
+        data:
+          mongodb:
+            core: DEBUG

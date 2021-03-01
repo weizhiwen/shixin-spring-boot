@@ -1,9 +1,10 @@
 package com.shixin.dal.dao;
 
+import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.date.TimeInterval;
 import cn.hutool.core.lang.Assert;
 import com.shixin.commons.util.BeanUtil;
 import com.shixin.dal.entity.BaseEntity;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -12,6 +13,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Objects;
 
@@ -23,10 +26,15 @@ import java.util.Objects;
  */
 @NoRepositoryBean
 @Slf4j
-public abstract class BaseDaoImpl<R extends JpaRepository<T, Integer>, T extends BaseEntity> implements BaseDao<T> {
+public abstract class BaseRdsDaoImpl<R extends JpaRepository<T, Integer>, T extends BaseEntity> implements BaseRdsDao<T> {
 
     @Autowired
     protected R repository;
+
+    final static int BATCH_SIZE = 1000;
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Override
     public T create(T t) {
@@ -38,12 +46,38 @@ public abstract class BaseDaoImpl<R extends JpaRepository<T, Integer>, T extends
     @Override
     public List<T> createAll(List<T> list) {
         Assert.notEmpty(list, "待创建对象列表不能为空");
-        return repository.saveAll(list);
+        TimeInterval timer = DateUtil.timer();
+        repository.saveAll(list);
+        log.info("插入数据花费" + timer.interval() + "毫秒");
+        return list;
+    }
+
+    @Override
+    public List<T> batchCreateAll(List<T> list) {
+        return batchCreateAll(list, BATCH_SIZE);
+    }
+
+    @Override
+    public List<T> batchCreateAll(List<T> list, int batchSize) {
+        Assert.notEmpty(list, "待创建对象列表不能为空");
+        TimeInterval timer = DateUtil.timer();
+        int i = 1;
+        for (T t : list) {
+            entityManager.persist(t);
+            if (i % batchSize == 0) {
+                entityManager.flush();
+            }
+            i++;
+        }
+        entityManager.flush();
+        entityManager.clear();
+        log.info("插入数据花费" + timer.interval() + "毫秒");
+        return list;
     }
 
     @Override
     public T update(T t) {
-        Assert.notNull(t, "待更新对象{}不能为空");
+        Assert.notNull(t, "待更新对象不能为空");
         Assert.notNull(t.getId(), "待更新对象Id不能为空");
         var toUpdate = repository.getOne(t.getId());
         BeanUtil.copy(t, toUpdate);
@@ -51,14 +85,23 @@ public abstract class BaseDaoImpl<R extends JpaRepository<T, Integer>, T extends
     }
 
     @Override
-    public T updateWithNull(T t) {
-        Assert.notNull(t, "待更新对象{}不能为空");
+    public T update(T t, Boolean ignoreNull) {
+        Assert.notNull(t, "待更新对象不能为空");
         Assert.notNull(t.getId(), "待更新对象Id不能为空");
         var toUpdate = repository.getOne(t.getId());
-        BeanUtil.copyWithNull(t, toUpdate);
+        BeanUtil.copy(t, toUpdate, ignoreNull);
         return repository.save(toUpdate);
     }
 
+    @Override
+    public List<T> updateAll(List<T> list) {
+        return repository.saveAll(list);
+    }
+
+    @Override
+    public long count(T t) {
+        return repository.count(Example.of(t));
+    }
 
     @Override
     public T findById(Integer id) {
@@ -73,6 +116,14 @@ public abstract class BaseDaoImpl<R extends JpaRepository<T, Integer>, T extends
         var toDelete = repository.getOne(id);
         toDelete.setDeleted(null);
         repository.save(toDelete);
+    }
+
+    @Override
+    public void deleteByIds(List<Integer> ids) {
+        Assert.notEmpty(ids, "删除Id列表不能为空");
+        List<T> list = repository.findAllById(ids);
+        list.forEach(item-> item.setDeleted(null));
+        repository.saveAll(list);
     }
 
     @Override

@@ -3,7 +3,9 @@ package com.shixin.dal.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Where;
@@ -22,30 +24,40 @@ import java.util.Date;
  * @author shixin
  */
 @Data
-@EqualsAndHashCode
 @MappedSuperclass
 @DynamicInsert
 @DynamicUpdate
 @EntityListeners({AuditingEntityListener.class})
-@NoArgsConstructor
 @Where(clause = "deleted = 0")
-public abstract class BaseEntity implements Serializable {
-
+public class BaseEntity implements Serializable {
+    /**
+     * Id
+     */
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
 
+    /**
+     * 数据创建时间
+     */
+    @Nullable
     @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_time")
     protected Date createTime;
 
+    /**
+     * 数据更新时间
+     */
+    @Nullable
     @LastModifiedDate
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "update_time")
     protected Date updateTime;
 
+    /**
+     * 是否删除
+     */
     @Column(name = "deleted")
     @JsonIgnore
     protected Boolean deleted = false;
