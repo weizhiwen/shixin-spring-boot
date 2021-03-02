@@ -15,7 +15,7 @@ import org.springframework.data.mongodb.config.EnableMongoAuditing;
  * @date 2020/10/18 9:46 上午
  */
 @Configuration
-@ComponentScan(value = {"com.shixin.framework.*", "com.example.dao"})
+@ComponentScan(value = {"com.shixin.framework.*", "com.shixin.dal"})
 @EnableJpaRepositories(value = "com.example.repository")
 @EntityScan("com.example.entity")
 @EnableJpaAuditing

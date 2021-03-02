@@ -139,9 +139,16 @@ public interface BaseMongoDao<D extends BaseDocument> {
     /**
      * 根据id列表删除对象列表 逻辑删除
      *
-     * @param id 对象Id
+     * @param ids 对象Id
      */
     void deleteByIds(List<String> ids);
+
+    /**
+     * 根据id列表删除对象列表 逻辑删除
+     *
+     * @param ids 对象Id
+     */
+    void deleteByIds(String... ids);
 
     /**
      * 根据对象删除对象 默认逻辑删除

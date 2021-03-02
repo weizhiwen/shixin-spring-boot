@@ -9,6 +9,7 @@ import com.shixin.framework.controller.BaseRestController;
 import com.shixin.framework.vo.BaseResult;
 import com.shixin.framework.vo.JsonResult;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("blog")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class BlogController extends BaseRestController {
     final BlogService blogService;
 
