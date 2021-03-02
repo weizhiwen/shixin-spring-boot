@@ -38,14 +38,14 @@ public abstract class BaseRdsDaoImpl<R extends JpaRepository<T, Integer>, T exte
     private EntityManager entityManager;
 
     @Override
-    public T create(T t) {
+    public T insert(T t) {
         Assert.notNull(t, "待创建的对象不能为空");
         Assert.isNull(t.getId(), "待创建的对象Id必须为空");
         return repository.saveAndFlush(t);
     }
 
     @Override
-    public List<T> createAll(List<T> list) {
+    public List<T> multiInsert(List<T> list) {
         Assert.notEmpty(list, "待创建对象列表不能为空");
         TimeInterval timer = DateUtil.timer();
         repository.saveAll(list);
@@ -54,12 +54,17 @@ public abstract class BaseRdsDaoImpl<R extends JpaRepository<T, Integer>, T exte
     }
 
     @Override
-    public List<T> batchCreateAll(List<T> list) {
-        return batchCreateAll(list, BATCH_SIZE);
+    public List<T> batchInsert(List<T> list) {
+        return batchInsert(list, BATCH_SIZE);
     }
 
     @Override
-    public List<T> batchCreateAll(List<T> list, int batchSize) {
+    public List<T> batchInsert(List<T> list, int batchSize) {
+        return batchInsert(list, (long) batchSize);
+    }
+
+    @Override
+    public List<T> batchInsert(List<T> list, long batchSize) {
         Assert.notEmpty(list, "待创建对象列表不能为空");
         TimeInterval timer = DateUtil.timer();
         int i = 1;
@@ -95,7 +100,7 @@ public abstract class BaseRdsDaoImpl<R extends JpaRepository<T, Integer>, T exte
     }
 
     @Override
-    public List<T> updateAll(List<T> list) {
+    public List<T> multiUpdate(List<T> list) {
         return repository.saveAll(list);
     }
 

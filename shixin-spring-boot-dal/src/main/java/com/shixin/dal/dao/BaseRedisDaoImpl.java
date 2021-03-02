@@ -6,10 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.core.Cursor;
-import org.springframework.data.redis.core.RedisConnectionUtils;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.ScanOptions;
+import org.springframework.data.redis.core.*;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -19,10 +16,10 @@ import java.util.concurrent.TimeUnit;
  * @author shixin
  * @date 2021/3/1
  */
+@Slf4j
 @Component
 @AllArgsConstructor
-@Slf4j
-public class BaseRedisImpl implements BaseRedisDao {
+public class BaseRedisDaoImpl implements BaseRedisDao {
 
     final RedisTemplate<Object, Object> redisTemplate;
 
@@ -99,7 +96,7 @@ public class BaseRedisImpl implements BaseRedisDao {
             cursor.next();
         }
         try {
-            RedisConnectionUtils.releaseConnection(rc, factory);
+            RedisConnectionUtils.releaseConnection(rc, factory, false);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
         }
@@ -129,7 +126,7 @@ public class BaseRedisImpl implements BaseRedisDao {
                 for (String key : keys) {
                     keySet.addAll(redisTemplate.keys(key));
                 }
-                long count = redisTemplate.delete(keySet);
+                Long count = redisTemplate.delete(keySet);
                 log.debug("--------------------------------------------");
                 log.debug("成功删除缓存：" + keySet.toString());
                 log.debug("缓存删除数量：" + count + "个");
@@ -452,7 +449,7 @@ public class BaseRedisImpl implements BaseRedisDao {
         for (Long id : ids) {
             keys.addAll(redisTemplate.keys(new StringBuffer(prefix).append(id).toString()));
         }
-        long count = redisTemplate.delete(keys);
+        Long count = redisTemplate.delete(keys);
         // 此处提示可自行删除
         log.debug("--------------------------------------------");
         log.debug("成功删除缓存：" + keys.toString());

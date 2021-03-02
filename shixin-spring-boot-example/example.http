@@ -88,3 +88,6 @@ Content-Type: application/json
 DELETE {{baseUrl}}/blog/603a52183b87a13e513bb083
 Content-Type: application/json
 
+### 测试Redis-set
+POST {{baseUrl}}/test?key=name&value=111
+
