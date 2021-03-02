@@ -29,15 +29,15 @@ public class UserService implements BaseService {
     final UserDao userDao;
 
     public User createUser(User user) {
-        return userDao.create(user);
+        return userDao.insert(user);
     }
 
     public List<User> batch1CreateUser(List<User> userList) {
-        return userDao.createAll(userList);
+        return userDao.multiInsert(userList);
     }
 
     public List<User> batch2CreateUser(List<User> userList) {
-        return userDao.batchCreateAll(userList, 10000);
+        return userDao.batchInsert(userList, 10000);
     }
 
     public List<User> listUser() {
