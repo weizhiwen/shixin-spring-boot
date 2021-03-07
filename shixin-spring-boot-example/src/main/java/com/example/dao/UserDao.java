@@ -3,8 +3,9 @@ package com.example.dao;
 import com.example.entity.User;
 import com.example.repository.UserRepository;
 import com.shixin.dal.dao.BaseRdsDaoImpl;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
+
+import javax.persistence.EntityManager;
 
 /**
  * @author shixin
@@ -12,4 +13,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class UserDao extends BaseRdsDaoImpl<UserRepository, User> {
+    public UserDao(UserRepository repository, EntityManager entityManager) {
+        super(repository, entityManager);
+    }
 }

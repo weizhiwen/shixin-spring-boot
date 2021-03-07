@@ -33,6 +33,7 @@ public class RestExceptionHandler {
      */
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public BaseResult handler(HttpRequestMethodNotSupportedException ex) {
+        log.warn("异常信息：{}", ex.getLocalizedMessage());
         return JsonResult.warn("请求方式有误");
     }
 
@@ -41,6 +42,7 @@ public class RestExceptionHandler {
      */
     @ExceptionHandler(ParamNotValidException.class)
     public BaseResult handler(ParamNotValidException ex) {
+        log.warn("异常信息：{}", ex.getLocalizedMessage());
         return JsonResult.warn("参数有误：" + ex.getMessage());
     }
 
@@ -51,6 +53,7 @@ public class RestExceptionHandler {
      */
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public BaseResult handler(HttpMessageNotReadableException ex) {
+        log.warn("异常信息：{}", ex.getLocalizedMessage());
         return JsonResult.warn("参数不匹配：" + ex.getMessage());
     }
 
@@ -61,6 +64,7 @@ public class RestExceptionHandler {
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public BaseResult handler(MethodArgumentNotValidException ex) {
+        log.warn("异常信息：{}", ex.getLocalizedMessage());
         var errorInformation = ex.getBindingResult().getFieldErrors()
                 .stream()
                 .map(fieldError -> fieldError.getField() + " " + fieldError.getDefaultMessage())
@@ -75,6 +79,7 @@ public class RestExceptionHandler {
      */
     @ExceptionHandler(AuthException.class)
     public BaseResult handler(AuthException ex) {
+        log.warn("异常信息：{}", ex.getLocalizedMessage());
         return JsonResult.unauthorized(ex.getMessage());
     }
 
@@ -85,6 +90,7 @@ public class RestExceptionHandler {
      */
     @ExceptionHandler({UsernameNotFoundException.class, BadCredentialsException.class})
     public BaseResult handler(RuntimeException ex) {
+        log.warn("异常信息：{}", ex.getLocalizedMessage());
         return JsonResult.unauthorized(ex.getMessage());
     }
 
@@ -95,6 +101,7 @@ public class RestExceptionHandler {
      */
     @ExceptionHandler(AccessDeniedException.class)
     public BaseResult handler(AccessDeniedException ex) {
+        log.warn("异常信息：{}", ex.getLocalizedMessage());
         return JsonResult.forbidden();
     }
 

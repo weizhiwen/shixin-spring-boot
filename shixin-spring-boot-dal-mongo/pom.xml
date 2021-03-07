@@ -9,41 +9,29 @@
         <relativePath>../shixin-spring-boot-parent</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>shixin-spring-boot-dal</artifactId>
-    <name>shixin-spring-boot-dal</name>
+    <artifactId>shixin-spring-boot-dal-mongo</artifactId>
+    <name>shixin-spring-boot-dal-mongo</name>
     <version>${revision}</version>
-    <description>数据层模块，该模块包含数据库相关的类，业务代码的数据库访问层依赖该模块</description>
-    <url>https://github.com/weizhiwen/shixin-spring-boot/tree/release/shixin-spring-boot-dal</url>
+    <description>关系型数据库模块</description>
+    <url>https://github.com/weizhiwen/shixin-spring-boot/tree/release/shixin-spring-boot-dal-mongo</url>
     <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
-            <groupId>com.github.weizhiwen</groupId>
-            <artifactId>shixin-spring-boot-commons</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-jpa</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus</artifactId>
+            <groupId>com.github.weizhiwen</groupId>
+            <artifactId>shixin-spring-boot-commons</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-mongodb</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-redis</artifactId>
         </dependency>
     </dependencies>
 </project>

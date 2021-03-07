@@ -2,11 +2,14 @@ package com.shixin.dal.dao;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.core.*;
+import org.springframework.data.redis.core.Cursor;
+import org.springframework.data.redis.core.RedisConnectionUtils;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ScanOptions;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -18,7 +21,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Slf4j
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class BaseRedisDaoImpl implements BaseRedisDao {
 
     final RedisTemplate<Object, Object> redisTemplate;
@@ -119,19 +122,18 @@ public class BaseRedisDaoImpl implements BaseRedisDao {
             if (keys.length == 1) {
                 Boolean result = redisTemplate.delete(keys[0]);
                 log.debug("--------------------------------------------");
-                log.debug(new StringBuilder("删除缓存：").append(keys[0]).append("，结果：").append(result).toString());
-                log.debug("--------------------------------------------");
+                log.debug("删除缓存：{}，结果：{}", keys[0], result);
             } else {
                 Set<Object> keySet = new HashSet<>();
                 for (String key : keys) {
-                    keySet.addAll(redisTemplate.keys(key));
+                    keySet.addAll(Objects.requireNonNull(redisTemplate.keys(key)));
                 }
                 Long count = redisTemplate.delete(keySet);
                 log.debug("--------------------------------------------");
                 log.debug("成功删除缓存：" + keySet.toString());
                 log.debug("缓存删除数量：" + count + "个");
-                log.debug("--------------------------------------------");
             }
+            log.debug("--------------------------------------------");
         }
     }
 
@@ -144,8 +146,8 @@ public class BaseRedisDaoImpl implements BaseRedisDao {
 
     @Override
     public List<Object> multiGet(List<String> keys) {
-        List list = redisTemplate.opsForValue().multiGet(Sets.newHashSet(keys));
-        List resultList = Lists.newArrayList();
+        List<Object> list = redisTemplate.opsForValue().multiGet(Sets.newHashSet(keys));
+        List<Object> resultList = Lists.newArrayList();
         Optional.ofNullable(list).ifPresent(e -> list.forEach(ele -> Optional.ofNullable(ele).ifPresent(resultList::add)));
         return resultList;
     }
@@ -215,7 +217,7 @@ public class BaseRedisDaoImpl implements BaseRedisDao {
         }
     }
 
-   @Override
+    @Override
     public boolean hmset(String key, Map<String, Object> map, long time) {
         try {
             redisTemplate.opsForHash().putAll(key, map);
@@ -269,14 +271,14 @@ public class BaseRedisDaoImpl implements BaseRedisDao {
         return redisTemplate.opsForHash().increment(key, item, by);
     }
 
-   @Override
+    @Override
     public double hdecr(String key, String item, double by) {
         return redisTemplate.opsForHash().increment(key, item, -by);
     }
 
     // ============================set=============================
 
-   @Override
+    @Override
     public Set<Object> sGet(String key) {
         try {
             return redisTemplate.opsForSet().members(key);
@@ -320,7 +322,7 @@ public class BaseRedisDaoImpl implements BaseRedisDao {
         }
     }
 
-   @Override
+    @Override
     public Long sGetSetSize(String key) {
         try {
             return redisTemplate.opsForSet().size(key);
@@ -372,7 +374,7 @@ public class BaseRedisDaoImpl implements BaseRedisDao {
         }
     }
 
-   @Override
+    @Override
     public boolean lSet(String key, Object value) {
         try {
             redisTemplate.opsForList().rightPush(key, value);
@@ -397,7 +399,7 @@ public class BaseRedisDaoImpl implements BaseRedisDao {
         }
     }
 
-   @Override
+    @Override
     public boolean lSet(String key, List<Object> value) {
         try {
             redisTemplate.opsForList().rightPushAll(key, value);
@@ -447,7 +449,7 @@ public class BaseRedisDaoImpl implements BaseRedisDao {
     public void delByKeys(String prefix, Set<Long> ids) {
         Set<Object> keys = new HashSet<>();
         for (Long id : ids) {
-            keys.addAll(redisTemplate.keys(new StringBuffer(prefix).append(id).toString()));
+            keys.addAll(Objects.requireNonNull(redisTemplate.keys(prefix + id)));
         }
         Long count = redisTemplate.delete(keys);
         // 此处提示可自行删除

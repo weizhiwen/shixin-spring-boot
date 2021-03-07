@@ -6,8 +6,8 @@ import cn.hutool.core.lang.Assert;
 import com.google.common.collect.Iterables;
 import com.shixin.commons.util.BeanUtil;
 import com.shixin.dal.entity.BaseDocument;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,12 +25,12 @@ import java.util.Objects;
  * @author weizhiwen
  * @date 2020/12/5
  */
-@NoRepositoryBean
 @Slf4j
+@NoRepositoryBean
+@RequiredArgsConstructor
 public abstract class BaseMongoDaoImpl<R extends MongoRepository<D, String>, D extends BaseDocument> implements BaseMongoDao<D> {
 
-    @Autowired
-    protected R repository;
+    final R repository;
 
     @Override
     public D create(D d) {
@@ -136,7 +136,7 @@ public abstract class BaseMongoDaoImpl<R extends MongoRepository<D, String>, D e
     public void deleteByIds(List<String> ids) {
         Assert.notEmpty(ids, "删除ID列表不能为空");
         Iterable<D> list = repository.findAllById(ids);
-        list.forEach(item-> item.setDeleted(null));
+        list.forEach(item -> item.setDeleted(null));
         repository.saveAll(list);
     }
 

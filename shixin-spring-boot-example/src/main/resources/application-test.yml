@@ -31,20 +31,3 @@ spring:
       types:
         print:
           banner: false
-#  data:
-#    mongodb:
-#      database: example
-
-logging:
-  level:
-    com:
-      example: DEBUG
-    org:
-      springframework:
-        data:
-          mongodb:
-            core: DEBUG
-          jpa:
-            core: DEBUG
-          redis:
-            core: DEBUG

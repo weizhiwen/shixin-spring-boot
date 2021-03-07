@@ -7,8 +7,6 @@ import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
-
 /**
  * 重写 404 处理
  *
@@ -23,7 +21,7 @@ public class RequestErrorController implements ErrorController {
     }
 
     @RequestMapping("/error")
-    public BaseResult errorPage(HttpServletRequest request) {
+    public BaseResult errorPage() {
         return JsonResult.notFound("请求的地址没有对应的API方法");
     }
 }

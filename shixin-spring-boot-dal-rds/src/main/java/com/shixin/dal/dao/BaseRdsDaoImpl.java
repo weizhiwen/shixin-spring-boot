@@ -5,8 +5,8 @@ import cn.hutool.core.date.TimeInterval;
 import cn.hutool.core.lang.Assert;
 import com.shixin.commons.util.BeanUtil;
 import com.shixin.dal.entity.BaseEntity;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,7 +14,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -25,17 +24,15 @@ import java.util.Objects;
  * @author weizhiwen
  * @date 2020/12/5
  */
-@NoRepositoryBean
 @Slf4j
+@NoRepositoryBean
+@RequiredArgsConstructor
 public abstract class BaseRdsDaoImpl<R extends JpaRepository<T, Integer>, T extends BaseEntity> implements BaseRdsDao<T> {
 
-    @Autowired
-    protected R repository;
+    final R repository;
+    final EntityManager entityManager;
 
     final static int BATCH_SIZE = 1000;
-
-    @PersistenceContext
-    private EntityManager entityManager;
 
     @Override
     public T insert(T t) {
@@ -128,7 +125,7 @@ public abstract class BaseRdsDaoImpl<R extends JpaRepository<T, Integer>, T exte
     public void deleteByIds(List<Integer> ids) {
         Assert.notEmpty(ids, "删除Id列表不能为空");
         List<T> list = repository.findAllById(ids);
-        list.forEach(item-> item.setDeleted(null));
+        list.forEach(item -> item.setDeleted(null));
         repository.saveAll(list);
     }
 

@@ -14,7 +14,9 @@
     <!-- 子模块集合 -->
     <modules>
         <module>shixin-spring-boot-commons</module>
-        <module>shixin-spring-boot-dal</module>
+        <module>shixin-spring-boot-dal-rds</module>
+        <module>shixin-spring-boot-dal-mongo</module>
+        <module>shixin-spring-boot-dal-redis</module>
         <module>shixin-spring-boot-framework</module>
         <module>shixin-spring-boot-parent</module>
         <module>shixin-spring-boot-dependencies</module>
@@ -82,16 +84,16 @@
     <build>
         <finalName>${project.artifactId}</finalName>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
-                    <encoding>UTF-8</encoding>
-                </configuration>
-                <version>${maven-compiler-plugin.version}</version>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-compiler-plugin</artifactId>-->
+<!--                <configuration>-->
+<!--                    <source>${java.version}</source>-->
+<!--                    <target>${java.version}</target>-->
+<!--                    <encoding>UTF-8</encoding>-->
+<!--                </configuration>-->
+<!--                <version>${maven-compiler-plugin.version}</version>-->
+<!--            </plugin>-->
             <!-- Maven 部署到本地 -->
 <!--            <plugin>-->
 <!--                <artifactId>maven-deploy-plugin</artifactId>-->
